@@ -32,7 +32,8 @@ export default function App() {
   const [games, setGames] = useState([]); //games es una lista que almacen los juegos de la API, inicialmente esta vacia
   const [selectedGame, setSelectedGame] = useState(null); //selectedGame almacena los detalles de los juegos, esta en null
 
-  useEffect(() => {
+  useEffect(() => { /* es asincrona porque esta esperando a que se cargen los datos de la API
+    si no los ponemos pueden ocurrir errores */
     async function fetchGames() {
       const popularGames = await getRatingGames();
       setGames(popularGames);
