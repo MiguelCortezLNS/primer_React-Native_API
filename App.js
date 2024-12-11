@@ -14,7 +14,6 @@ export default function App() {
     <SafeAreaProvider>
       <View style={styles.container}>
         {/* Barra de estado, style="light" para que se vean los datos */}
-        <StatusBar style="light" />
         {/* ScrollView, permite que el contenido sea desplazable si excede la altura de la pantalla */}
         <Main/> 
         {/* Llamar componente */}
