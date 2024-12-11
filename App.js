@@ -6,7 +6,7 @@ StyleSheet: API para definir estilos en react native (Esta hasta la parte de los
 StatusBar: Componente para personalizar la barra de estado (color, estilo, etc) (esta es donde sale la hora, bateria etc)
 Platform: Para checar las plataformas movil, web
 */
-import { Main } from "./components/main.jsx";
+import { Main } from "./components/main.jsx";  //importar componente
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
@@ -16,7 +16,8 @@ export default function App() {
         {/* Barra de estado, style="light" para que se vean los datos */}
         <StatusBar style="light" />
         {/* ScrollView, permite que el contenido sea desplazable si excede la altura de la pantalla */}
-        <Main/>
+        <Main/> 
+        {/* Llamar componente */}
       </View>
     </SafeAreaProvider>
   );
