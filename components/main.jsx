@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
+import { FlatList, Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { getRatingGames } from "../lib/rawg.js"; // Importamos la API para obtener los juegos
 import { GameCard } from "./gameCard.jsx"; // Componente que muestra los juegos
 import { useSafeAreaInsets } from "react-native-safe-area-context"; // Para manejar los márgenes seguros en dispositivos móviles
 
 export function Main() {
   const [games, setGames] = useState([]); // Lista de juegos
+  const [loading, setLoading] = useState(true); // Estado para controlar la carga, asumimos que los datos aun no estan cargados
   const insets = useSafeAreaInsets(); // Márgenes seguros
 
   useEffect(() => {
     async function fetchGames() {
+      setLoading(true); // Activar el indicador de carga antes de que se obtengan los juegos
       const popularGames = await getRatingGames();
       setGames(popularGames);
+      setLoading(false); // Desactivar el indicador de carga despues de que obtuvieron los juegps
     }
     fetchGames();
   }, []);
@@ -19,13 +22,19 @@ export function Main() {
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <Text style={styles.header}>Popular Games</Text>
-      {/* Usamos FlatList para listas eficientes */}
-      <FlatList
-        data={games} // Lista de juegos
-        renderItem={({ item }) => <GameCard game={item} />} // Renderiza cada juego
-        keyExtractor={(item) => item.id.toString()} // Asegura que cada elemento tenga una clave única
-        contentContainerStyle={styles.content} // Estilo para el contenedor del contenido
-      />
+      {/* Mostrar ActivityIndicator mientras cargan los datos */}
+      {/* "SI SE ESTAN CARGANDO" se muestra el indicador de carga, "NO SE ESTAN CARGANDO" osea ya termino la carga muestra los juegos
+      esto es porque a loading al terminar de cargar los juegos se le asigno false esto en la funcion fetchGames */}
+      {loading ? (
+        <ActivityIndicator size="large" color="#ff0000" style={styles.loader} />
+      ) : (
+        <FlatList
+          data={games} // Lista de juegos
+          renderItem={({ item }) => <GameCard game={item} />} // Renderiza cada juego
+          keyExtractor={(item) => item.id.toString()} // Asegura que cada elemento tenga una clave única
+          contentContainerStyle={styles.content} // Estilo para el contenedor del contenido
+        />
+      )}
     </View>
   );
 }
@@ -42,6 +51,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   content: {
+    alignItems: "center",
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
 });
