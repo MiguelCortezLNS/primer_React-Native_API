@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { getRatingGames } from "../lib/rawg.js"; // Importamos la API para obtener los juegos
-import { GameCard } from "./gameCard.jsx"; // Componente que muestra los juegos
+import { AnimatedGameCard, GameCard } from "./gameCard.jsx"; // Componente que muestra los juegos
 import { useSafeAreaInsets } from "react-native-safe-area-context"; // Para manejar los márgenes seguros en dispositivos móviles
 import { Logo } from "./logo.jsx";
 
@@ -51,7 +51,7 @@ export function Main() {
       ) : (
         <FlatList
           data={games} // Lista de juegos
-          renderItem={({ item }) => <GameCard game={item} />} // Renderiza cada juego
+          renderItem={({ item, index }) => <AnimatedGameCard game={item} index={index} />} // Renderiza cada juego
           keyExtractor={(item) => item.id.toString()} // Asegura que cada elemento tenga una clave única
           contentContainerStyle={styles.content} // Estilo para el contenedor del contenido
         />

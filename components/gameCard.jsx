@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, Image, Platform } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, StyleSheet, Text, Image, Platform, Animated } from "react-native";
 import {getGameDetails } from "../lib/rawg.js"; //Importamos funciones del archivo con la API
 
 
@@ -64,20 +64,34 @@ export function GameCard({ game }) {
   );
 }
 
+export function AnimatedGameCard({ game, index }) {
+  const opacity = useRef(new Animated.Value(0)).current;
+  
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 500,
+      delay: index * 500,
+      useNativeDriver: true,
+    }).start();
+  }, [opacity, index]);
+
+  return (
+<Animated.View style={[{ opacity, alignItems:'center', width:"100%" }]}>
+  <GameCard game={game} />
+</Animated.View>
+
+  )
+}
+
 /* Los estilos */
 const styles = StyleSheet.create({
-  subHeader: {
-    fontSize: 20,
-    fontWeight: "600",
-    marginTop: 20,
-    textAlign: "center",
-  },
   card: {
     marginBottom: 20,
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 10,
-    width: "80%",
+    width: "90%",
     alignItems: "center",
     borderRadius: 8,
   },
