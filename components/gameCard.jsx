@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'; // Importar hook de na
 export function GameCard({ game }) {
   const [clickCount, setClickCount] = useState(0);
   const [selectedGame, setSelectedGame] = useState(null);
-  const navigation = useNavigation(); // Hook de navegación
+  const navigation = useNavigation(); // Hook de navegación Usamos useNavigation() para obtener el objeto de navegación, lo que nos permitirá realizar la navegación entre pantallas.
 
   const handleSelectGame = async (gameId) => {
     if (clickCount === 0) {
@@ -22,7 +22,7 @@ export function GameCard({ game }) {
   };
 
   const handleNavigateToDetailsPage = () => {
-    navigation.navigate('GameDetails'); // Navegar a GameDetails.js
+    navigation.navigate('GameDetails'); // Navegar a GameDetails.js sabe que asi se llama porque asi la llamamos en lo del app.js
   };
 
   return (

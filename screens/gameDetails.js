@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'; // Importa el hook `useNavigation`, que permite acceder a la funcionalidad de navegación dentro del componente.
 
 export default function GameDetails() {
-  const navigation = useNavigation();
+  const navigation = useNavigation(); // Usamos el hook `useNavigation` para obtener la instancia de navegación.
 
   return (
     <View style={styles.container}>
