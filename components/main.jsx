@@ -32,7 +32,8 @@ export function Main() {
         styles.container,
         { paddingTop: insets.top, paddingBottom: insets.bottom },
       ]}
-    >
+    > 
+    {/* Eso de insets usar en varias paginas ya que son los safearea */}
       <View style={styles.header_Principal}>
         <Logo
           fill="#fff"
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header_Principal: {
-   // backgroundColor: "red",
+    //backgroundColor: "red",
     width: "100%",
     height: 90,
     paddingTop: 10, // Espaciado superior

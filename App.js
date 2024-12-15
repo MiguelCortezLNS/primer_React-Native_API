@@ -1,32 +1,28 @@
-import { View, StyleSheet, StatusBar, Platform } from "react-native";
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Main } from './components/main'; // Asegúrate que este es el camino correcto
+import GameDetails from './screens/gameDetails'; // Importación correcta de la exportación predeterminada
 
-/*
-View: Componente contenedor que agrupa otros componentes y permite aplicar estilos
-StyleSheet: API para definir estilos en react native (Esta hasta la parte de los estilos)
-StatusBar: Componente para personalizar la barra de estado (color, estilo, etc) (esta es donde sale la hora, bateria etc)
-Platform: Para checar las plataformas movil, web
-*/
-import { Main } from "./components/main.jsx";  //importar componente
-import { SafeAreaProvider } from "react-native-safe-area-context";
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <View style={styles.container}>
-        {/* Barra de estado, style="light" para que se vean los datos */}
-        {/* ScrollView, permite que el contenido sea desplazable si excede la altura de la pantalla */}
-        <Main/> 
-        {/* Llamar componente */}
-      </View>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Main">
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="GameDetails" 
+          component={GameDetails}
+          options={{ 
+            headerShown: false
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-/* Los estilos */
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-}
-);
